@@ -1,7 +1,8 @@
+import ItemCard from "@/components/ItemCard";
 import BackofficeLayout from "@/components/backofficeLayout/BackofficeLayout";
-import { IconCategoryType, ItemCategoryType } from "@/types/typeForAll";
+import { ItemCategoryType } from "@/types/typeForAll";
 import { config } from "@/utils/config";
-import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
 const ItemCategoryPage = () => {
@@ -10,23 +11,6 @@ const ItemCategoryPage = () => {
   useEffect(() => {
     fetchItemCategory();
   }, []);
-
-  const iconObject : IconCategoryType= {
-    မိတ်ကပ်လိမ်း: "/makeup.png",
-    နားဖောက်: "/ear.png",
-    ဆေးဆိုး: "/hair-dye.png",
-    မျက်ခုံးရိတ်: "/eyebrow.png",
-    ခေါင်း‌လျှော်: "/hair-washing.png",
-    လျှော်ညှပ်: "/w-c.png",
-    ဆံပင်ကောက်: "/curler.png",
-    ဆံပင်ဖြောင့်: "/hair-straightener.png",
-    ရှေ့ညှပ်: "/hair-cut.png",
-    ဆံပင်ညှပ်: "/haircut.png",
-    မျက်နှာဂျီးချွတ်: "/face-g.png",
-    မျက်နှာပေါင်းတင်: "/face-p.png",
-    စက်ဆွဲ: "/hair-iron.png",
-    လျှော်ပေါင်း: "/w-p.png",
-  };
 
   const fetchItemCategory = async () => {
     const response = await fetch(`${config.apiBaseUrl}/create-note`);
@@ -47,63 +31,211 @@ const ItemCategoryPage = () => {
         <Box>
           <Typography sx={{ fontSize: 25, mb: 7 }}>အမျိူးအမည်စာရင်း</Typography>
         </Box>
-      
-        <Box sx={{display:"flex",width:{xs:"100vw",sm:700},flexDirection:"row",justifyContent:"space-between",flexWrap:"wrap"}}>
-        {Object.keys(itemcategory).map((key) => {
-          if (iconObject[key]) {
-            return (
-              <Card
-                key={key}
-                sx={{
-                  width: 150,
-                  height: 150,
-                  pb:8,
-                  mb:5
-                  }}
-               >
-              <CardMedia
-                sx={{ height: 135, objectFit: "contain" }}
-                image={iconObject[key]}
-                component={"div"}
-              />
-            <CardContent>
-              <Typography
-                gutterBottom
-                sx={{ mb: 0, textAlign: "center" }}
-              >
-                {key}
-                
-              </Typography>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Typography
-                  gutterBottom
-                  variant="subtitle1"
-                  sx={{
-                    mt: 0.8,
-                    ml: 0.4,
-                    fontWeight: "bold",
-                    fontStyle: "italic",
-                    textAlign: "center",
-                    
-                  }}
-                >
-                  {itemcategory[key]}
-                </Typography>
-              </Box>
-            </CardContent>
-  </Card>
+
+        <Box
+          sx={{
+            display: "flex",
+            width: { xs: "100vw", sm: 700 },
+            flexDirection: "row",
+            justifyContent: "space-between",
+            flexWrap: "wrap",
+          }}
+        >
+          {Object.entries(itemcategory).map(([key, value]) => {
+            if (key === "မိတ်ကပ်လိမ်း") {
+              return (
+                <ItemCard
+                  itemcategory={itemcategory}
+                  key={key}
+                  itemKey={key}
+                  imageUrl={"/makeup.png"}
+                />
               );
             }
-      // If the key doesn't exist in iconObject, return null or an empty fragment
-         return null;
-})}
+            if (key === "နားဖောက်") {
+              return (
+                <ItemCard
+                  itemcategory={itemcategory}
+                  key={key}
+                  itemKey={key}
+                  imageUrl={"/ear.png"}
+                />
+              );
+            }
+            if (key === "ဆေးဆိုး") {
+              return (
+                <ItemCard
+                  itemcategory={itemcategory}
+                  key={key}
+                  itemKey={key}
+                  imageUrl={"/hair-dye.png"}
+                />
+              );
+            }
+            if (key === "မျက်ခုံးရိတ်") {
+              return (
+                <ItemCard
+                  itemcategory={itemcategory}
+                  key={key}
+                  itemKey={key}
+                  imageUrl={"/eyebrow.png"}
+                />
+              );
+            }
+            if (key === "ခေါင်း‌လျှော်") {
+              return (
+                <ItemCard
+                  itemcategory={itemcategory}
+                  key={key}
+                  itemKey={key}
+                  imageUrl={"/hair-washing.png"}
+                />
+              );
+            }
+            if (key === "လျှော်ညှပ်") {
+              return (
+                <ItemCard
+                  itemcategory={itemcategory}
+                  key={key}
+                  itemKey={key}
+                  imageUrl={"/w-c.png"}
+                />
+              );
+            }
+            if (key === "ဆံပင်ကောက်") {
+              return (
+                <ItemCard
+                  itemcategory={itemcategory}
+                  key={key}
+                  itemKey={key}
+                  imageUrl={"/curler.png"}
+                />
+              );
+            }
+            if (key === "ဆံပင်ဖြောင့်") {
+              return (
+                <ItemCard
+                  itemcategory={itemcategory}
+                  key={key}
+                  itemKey={key}
+                  imageUrl={"/hair-straightener.png"}
+                />
+              );
+            }
+            if (key === "ရှေ့ညှပ်") {
+              return (
+                <ItemCard
+                  itemcategory={itemcategory}
+                  key={key}
+                  itemKey={key}
+                  imageUrl={"/hair-cut.png"}
+                />
+              );
+            }
+            if (key === "ဆံပင်ညှပ်") {
+              return (
+                <ItemCard
+                  itemcategory={itemcategory}
+                  key={key}
+                  itemKey={key}
+                  imageUrl={"/haircut.png"}
+                />
+              );
+            }
+            if (key === "မျက်နှာဂျီးချွတ်") {
+              return (
+                <ItemCard
+                  itemcategory={itemcategory}
+                  key={key}
+                  itemKey={key}
+                  imageUrl={"/face-g.png"}
+                />
+              );
+            }
+            if (key === "မျက်နှာပေါင်းတင်") {
+              return (
+                <ItemCard
+                  itemcategory={itemcategory}
+                  key={key}
+                  itemKey={key}
+                  imageUrl={"/face-p.png"}
+                />
+              );
+            }
+            if (key === "စက်ဆွဲ") {
+              return (
+                <ItemCard
+                  itemcategory={itemcategory}
+                  key={key}
+                  itemKey={key}
+                  imageUrl={"/hair-iron.png"}
+                />
+              );
+            }
+            if (key === "လျှော်ပေါင်း") {
+              return (
+                <ItemCard
+                  itemcategory={itemcategory}
+                  key={key}
+                  itemKey={key}
+                  imageUrl={"/w-p.png"}
+                />
+              );
+            }
+          })}
 
+          {/* {Object.keys(itemcategory).map((key) => {
+            if (iconObject[key]) {
+              return (
+                <Card
+                  key={itemcategory[key]}
+                  sx={{
+                    width: 150,
+                    height: 150,
+                    pb: 8,
+                    mb: 5,
+                  }}
+                >
+                  <CardMedia
+                    sx={{ height: 135, objectFit: "contain" }}
+                    image={iconObject[key]}
+                    component={"div"}
+                  />
+                  <CardContent>
+                    <Typography
+                      gutterBottom
+                      sx={{ mb: 0, textAlign: "center" }}
+                    >
+                      {key}
+                    </Typography>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Typography
+                        gutterBottom
+                        variant="subtitle1"
+                        sx={{
+                          mt: 0.8,
+                          ml: 0.4,
+                          fontWeight: "bold",
+                          fontStyle: "italic",
+                          textAlign: "center",
+                        }}
+                      >
+                        {itemcategory[key]}
+                      </Typography>
+                    </Box>
+                  </CardContent>
+                </Card>
+              );
+            }
+            // If the key doesn't exist in iconObject, return null or an empty fragment
+            return null;
+          })} */}
         </Box>
       </Box>
     </BackofficeLayout>
