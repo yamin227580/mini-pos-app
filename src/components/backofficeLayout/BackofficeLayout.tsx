@@ -10,7 +10,7 @@ interface Props {
 
 const BackofficeLayout = ({ children }: Props) => {
   return (
-    <Box>
+    <Box sx={{ display: "flex", width: "100vw", flexDirection: "column" }}>
       <Topbar />
 
       <Box sx={{ display: "flex", position: "relative" }}>
@@ -18,7 +18,7 @@ const BackofficeLayout = ({ children }: Props) => {
           <Sidebar />
         </Box>
         {/* children component */}
-        <Box sx={{ width: "100%", height: "100%", pl: 3, pt: 3 }}>
+        <Box sx={{ width: "100vw", height: "100vh", pr: 3, pt: 3 }}>
           {children}
         </Box>
       </Box>

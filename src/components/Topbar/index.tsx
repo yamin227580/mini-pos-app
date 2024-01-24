@@ -9,15 +9,11 @@ const Topbar = () => {
   return (
     <Box
       sx={{
-        width: "100vw",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
         px: 3,
         bgcolor: "#495E57",
-        // position: "fixed",
-        // top: 0,
-        // zIndex: 5,
       }}
     >
       <Box
