@@ -37,7 +37,7 @@ const ItemCategoryPage = () => {
             display: "flex",
             width: { xs: "100vw", sm: 700 },
             flexDirection: "row",
-            justifyContent: "space-between",
+            justifyContent: "space-around",
             flexWrap: "wrap",
           }}
         >
