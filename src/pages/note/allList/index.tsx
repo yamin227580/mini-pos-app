@@ -98,7 +98,7 @@ const AllListPage = () => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          width: "100vw",
+          width: { xs: "100vw", sm: 700, margin: "0 auto" },
         }}
       >
         <Box>
@@ -116,7 +116,7 @@ const AllListPage = () => {
         >
           <Box sx={{ display: "flex", flexDirection: "column", mr: 1 }}>
             <Typography
-              sx={{ mb: 3, fontSize: 18, mr: "5px", textAlign: "center" }}
+              sx={{ mb: 2, fontSize: 18, mr: "5px", textAlign: "center" }}
             >
               မှ
             </Typography>
@@ -139,7 +139,7 @@ const AllListPage = () => {
           </Box>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
             <Typography
-              sx={{ mb: 3, fontSize: 18, mr: "5px", textAlign: "center" }}
+              sx={{ mb: 2, fontSize: 18, mr: "5px", textAlign: "center" }}
             >
               အထိ
             </Typography>
@@ -200,7 +200,7 @@ const AllListPage = () => {
       <Box>
         <TableContainer
           component={Paper}
-          sx={{ width: { xs: "100vw", sm: 700 }, margin: "0 auto" }}
+          sx={{ width: { xs: "100vw", sm: 700 }, margin: "0 auto", mt: 3 }}
         >
           <Table aria-label="customized table">
             <TableHead>

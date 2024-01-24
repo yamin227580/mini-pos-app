@@ -1,5 +1,14 @@
+import EditNote from "@/components/EditNote";
 import BackofficeLayout from "@/components/backofficeLayout/BackofficeLayout";
-import { Box } from "@mui/material";
+import { config } from "@/utils/config";
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogContent,
+  DialogContentText,
+  Typography,
+} from "@mui/material";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -10,6 +19,7 @@ import TableRow from "@mui/material/TableRow";
 import { styled } from "@mui/material/styles";
 import { List } from "@prisma/client";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -32,17 +42,66 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const CustomizedTables = () => {
+  const [data, setData] = useState<List[]>([]);
+  const [totalPriceState, setTotalPriceState] = useState<
+    string | string[] | undefined
+  >();
+  const [open, setOpen] = useState<boolean>(false);
+  const [openForEdit, setOpenForEdit] = useState<boolean>(false);
+
+  const [idToDelete, setIdToDelete] = useState<number>();
+  const [idToEdit, setIdToEdit] = useState<number>();
+
   const router = useRouter();
-  const { totalPrice, filteredData } = router.query;
+  const { totalPrice: totalPriceFromQuery, filteredData } = router.query;
 
   // Check if filteredData is defined before parsing
   const parsedFilteredData =
     typeof filteredData === "string" ? JSON.parse(filteredData) : [];
 
-  const data: List[] = [...parsedFilteredData];
+  useEffect(() => {
+    if (totalPriceFromQuery !== undefined && parsedFilteredData) {
+      setTotalPriceState(totalPriceFromQuery);
+      setData(parsedFilteredData);
+    }
+  }, [totalPriceFromQuery]);
+
+  const handleDelete = async () => {
+    try {
+      const response = await fetch(
+        `${config.apiBaseUrl}/view-each-list?id=${idToDelete}&date=${data[0].createdAt}`,
+        {
+          method: "DELETE",
+          headers: { "content-type": "application/json" },
+        }
+      );
+      const { totalPrice, filteredData } = await response.json();
+      setData(filteredData);
+      setTotalPriceState(String(totalPrice));
+      setOpen(false);
+    } catch (error) {
+      console.error("Error occurred while deleting:", error);
+    }
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <BackofficeLayout>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "flex-end",
+        }}
+      >
+        {data.length > 0 && data[0].createdAt && (
+          <Typography sx={{ fontSize: 18, mb: 2, mr: 2 }}>
+            ရက်စွဲ : {data[0].createdAt.toLocaleString()}
+          </Typography>
+        )}
+      </Box>
       <Box
         sx={{
           display: "flex",
@@ -58,52 +117,123 @@ const CustomizedTables = () => {
           <Table aria-label="customized table">
             <TableHead>
               <TableRow>
-                <StyledTableCell sx={{ fontSize: 18 }}>ရက်စွဲ</StyledTableCell>
-                <StyledTableCell sx={{ fontSize: 18 }}>
+                <StyledTableCell sx={{ fontSize: 14 }}>
                   အမျိုးအမည်
                 </StyledTableCell>
-                <StyledTableCell sx={{ fontSize: 18 }}>
+                <StyledTableCell sx={{ fontSize: 14 }}>
                   စျေးနှုန်း
+                </StyledTableCell>
+                <StyledTableCell>
+                  <span />
+                </StyledTableCell>
+                <StyledTableCell>
+                  <span />
                 </StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {data.map((item) => (
                 <StyledTableRow key={item.id}>
+                  <StyledTableCell style={{ fontSize: "12px" }}>
+                    {item.name}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ fontSize: "12px" }}>
+                    {item.price.toLocaleString()}
+                  </StyledTableCell>
                   <StyledTableCell
                     component="th"
                     scope="row"
-                    style={{ fontSize: "14px" }}
+                    style={{ fontSize: "10px" }}
                   >
-                    {item.createdAt.toLocaleString()}
+                    <Button
+                      variant="contained"
+                      sx={{
+                        fontSize: 9,
+                        color: "white",
+                        fontWeight: "bold",
+                        backgroundColor: "red",
+                        "&:hover": { backgroundColor: "gray" },
+                      }}
+                      onClick={() => {
+                        setIdToDelete(item.id);
+                        setOpen(true);
+                      }}
+                    >
+                      ဖျက်မယ်
+                    </Button>
                   </StyledTableCell>
-                  <StyledTableCell style={{ fontSize: "14px" }}>
-                    {item.name}
-                  </StyledTableCell>
-                  <StyledTableCell style={{ fontSize: "14px" }}>
-                    {item.price.toLocaleString()}
+                  <StyledTableCell
+                    component="th"
+                    scope="row"
+                    style={{ fontSize: "10px" }}
+                  >
+                    <Button
+                      variant="contained"
+                      sx={{
+                        fontSize: 9,
+                        color: "white",
+                        fontWeight: "bold",
+                        backgroundColor: "#495E57",
+                        "&:hover": { backgroundColor: "gray" },
+                      }}
+                      onClick={() => {
+                        setIdToEdit(item.id);
+                        setOpenForEdit(true);
+                      }}
+                    >
+                      ပြင်မယ်
+                    </Button>
                   </StyledTableCell>
                 </StyledTableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
+
         <Box width={{ width: "400px", margin: "0 auto" }}>
           <Box
             sx={{
               textAlign: "center",
-              fontSize: 22,
+              fontSize: 18,
               fontWeight: "bold",
               mt: 2,
             }}
           >
             စုစုပေါင်း ={" "}
-            {typeof totalPrice === "string"
-              ? Number(totalPrice).toLocaleString()
+            {typeof totalPriceState === "string"
+              ? Number(totalPriceState).toLocaleString()
               : "0"}
           </Box>
         </Box>
+
+        <EditNote
+          open={openForEdit}
+          setOpen={setOpenForEdit}
+          idToEdit={idToEdit}
+          data={data}
+          setData={setData}
+          setTotalPriceState={setTotalPriceState}
+        />
       </Box>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogContent>
+          <DialogContentText
+            id="alert-dialog-description"
+            sx={{ color: "black", fontWeight: "bold", mt: 2, fontSize: "18px" }}
+          >
+            ဒီစာရင်းကို ဖျက်မှာသေချာလား?
+          </DialogContentText>
+        </DialogContent>
+
+        <Box sx={{ display: "flex", justifyContent: "space-around" }}>
+          <Button onClick={handleDelete} sx={{ color: "red" }}>
+            ဖျက်မယ်
+          </Button>
+          <Button onClick={handleClose} sx={{ color: "black" }}>
+            မဖျက်တော့ပါ
+          </Button>
+        </Box>
+      </Dialog>
     </BackofficeLayout>
   );
 };

@@ -15,7 +15,7 @@ const HomePage = () => {
 
   useEffect(() => {
     fetchExpenseData();
-  }, [expenseDataAll]);
+  }, []);
 
   const fetchExpenseData = async () => {
     const response = await fetch(`${config.apiBaseUrl}/expense-list`);
@@ -53,9 +53,16 @@ const HomePage = () => {
           open={open}
           setOpen={setOpen}
           setOpenForAlert={setOpenForAlert}
+          setExpenseDataAll={setExpenseDataAll}
+          setTotalPrice={setTotalPrice}
         />
         <AlertDialog open={openForAlert} setOpen={setOpenForAlert} />
-        <ExpenseTable totalPrice={totalPrice} expenseDataAll={expenseDataAll} />
+        <ExpenseTable
+          totalPrice={totalPrice}
+          expenseDataAll={expenseDataAll}
+          setExpenseDataAll={setExpenseDataAll}
+          setTotalPrice={setTotalPrice}
+        />
       </Box>
     </BackofficeLayout>
   );

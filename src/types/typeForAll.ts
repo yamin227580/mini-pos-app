@@ -8,6 +8,16 @@ export interface CreateExpensePayload {
   price: number;
 }
 
+export interface UpdateDataPayload {
+  name: string;
+  price: number;
+}
+
+export interface UpdateExpensePayload {
+  name: string;
+  price: number;
+}
+
 export interface ItemCategoryType {
   [name: string]: number;
 }

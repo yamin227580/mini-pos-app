@@ -8,12 +8,15 @@ import {
   DialogTitle,
   TextField,
 } from "@mui/material";
+import { Expense } from "@prisma/client";
 import { useState } from "react";
 
 interface Props {
   open: boolean;
   setOpen: (value: boolean) => void;
   setOpenForAlert: (value: boolean) => void;
+  setExpenseDataAll: (value: Expense[]) => void;
+  setTotalPrice: (value: number) => void;
 }
 
 const defaultData = {
@@ -21,7 +24,13 @@ const defaultData = {
   price: 0,
 };
 
-const CreateExpense = ({ open, setOpen, setOpenForAlert }: Props) => {
+const CreateExpense = ({
+  open,
+  setOpen,
+  setOpenForAlert,
+  setExpenseDataAll,
+  setTotalPrice,
+}: Props) => {
   const [expenseData, setExpenseData] =
     useState<CreateExpensePayload>(defaultData);
 
@@ -31,7 +40,9 @@ const CreateExpense = ({ open, setOpen, setOpenForAlert }: Props) => {
       headers: { "content-type": "application/json" },
       body: JSON.stringify(expenseData),
     });
-    const dataFromServer = await response.json();
+    const { totalPrice, updatedData } = await response.json();
+    setExpenseDataAll(updatedData);
+    setTotalPrice(totalPrice);
     setOpen(false);
     setExpenseData(defaultData);
     setOpenForAlert(true);
