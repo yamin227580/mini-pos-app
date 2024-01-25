@@ -11,6 +11,7 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
+import Image from "next/image";
 
 const Sidebar = () => {
   return (
@@ -88,6 +89,22 @@ const Sidebar = () => {
               primary={
                 <Typography sx={{ fontSize: 20, color: "#E8F6EF" }}>
                   စာရင်းချုပ်
+                </Typography>
+              }
+            />
+          </ListItemButton>
+        </Link>
+        <Link href={"/"} style={{ textDecoration: "none" }}>
+          <ListItemButton>
+            <ListItemIcon>
+              <Box sx={{ ml: -1.5 }}>
+                <Image src={"/home.png"} alt="logo" width={58} height={50} />
+              </Box>
+            </ListItemIcon>
+            <ListItemText
+              primary={
+                <Typography sx={{ fontSize: 20, color: "#E8F6EF", mr: 5 }}>
+                  မူလစာမျက်နှာ
                 </Typography>
               }
             />
