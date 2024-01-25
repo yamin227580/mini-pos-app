@@ -97,13 +97,15 @@ const Sidebar = () => {
         <Link href={"/"} style={{ textDecoration: "none" }}>
           <ListItemButton>
             <ListItemIcon>
-              <Box sx={{ ml: -1.5 }}>
+              <Box sx={{ ml: -1.5, mt: -1 }}>
                 <Image src={"/home.png"} alt="logo" width={58} height={50} />
               </Box>
             </ListItemIcon>
             <ListItemText
               primary={
-                <Typography sx={{ fontSize: 20, color: "#E8F6EF", mr: 5 }}>
+                <Typography
+                  sx={{ fontSize: 20, color: "#E8F6EF", mr: 5, mt: -2 }}
+                >
                   မူလစာမျက်နှာ
                 </Typography>
               }

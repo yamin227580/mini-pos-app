@@ -15,7 +15,7 @@ const CreateNotePage = () => {
         }}
       >
         <Box>
-          <Typography sx={{ fontSize: 28 }}>မှတ်စုရေးရန်</Typography>
+          <Typography sx={{ fontSize: 28 }}>ဝင်ငွေစာရင်းမှတ်ရန်</Typography>
         </Box>
 
         <Box sx={{ mt: 4 }}>
