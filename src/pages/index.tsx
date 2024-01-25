@@ -14,14 +14,14 @@ export default function Home() {
       }}
     >
       <Box
-        sx={{ width: "100%", height: 70, backgroundColor: "#FF9BD2", mb: 3 }}
+        sx={{ width: "100%", height: 82, backgroundColor: "#FF9BD2", mb: 3 }}
       >
         <Typography
           sx={{
             textAlign: "center",
             margin: "0 auto",
             fontSize: 27,
-            pt: 2,
+            pt: 2.5,
             fontWeight: "bold",
           }}
         >
@@ -34,13 +34,12 @@ export default function Home() {
           width: { xs: "100%", sm: "50%" },
           height: 370,
           pb: 10,
-
           m: { sm: "0 auto" },
         }}
       >
         <CardMedia
           sx={{
-            height: 180,
+            height: 200,
             objectFit: "contain",
             pt: 3,
             borderRadius: 5,
