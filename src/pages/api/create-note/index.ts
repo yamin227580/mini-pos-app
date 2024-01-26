@@ -11,11 +11,27 @@ export default async function handler(
     if (!isValid) {
       return res.status(405).send("bad request!Missing required fields");
     }
-    const { name, price } = req.body;
-    const data = await prisma.list.create({
-      data: { name, price },
-    });
-    return res.send(data);
+    const { name, price, customDate } = req.body;
+    if (customDate) {
+      const dateObject = new Date(customDate);
+      const isoDateString = dateObject.toISOString();
+      const data = await prisma.list.create({
+        data: {
+          name,
+          price,
+          createdAt: isoDateString ? isoDateString : undefined,
+        },
+      });
+      return res.send(data);
+    } else {
+      const data = await prisma.list.create({
+        data: {
+          name,
+          price,
+        },
+      });
+      return res.send(data);
+    }
   }
   if (req.method === "GET") {
     const data = await prisma.list.findMany();

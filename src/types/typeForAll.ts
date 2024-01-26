@@ -3,6 +3,12 @@ export interface CreateDataPayload {
   price: number;
 }
 
+export interface CreateDataBeforePayload {
+  name: string;
+  price: number;
+  customDate?: string;
+}
+
 export interface CreateExpensePayload {
   name: string;
   price: number;

@@ -17,7 +17,7 @@ const Sidebar = () => {
   return (
     <Box
       sx={{
-        minWidth: 250,
+        minWidth: 260,
         backgroundColor: "#D63484",
         borderTopRightRadius: "20px",
         minHeight: "100vh",
@@ -38,6 +38,7 @@ const Sidebar = () => {
             />
           </ListItemButton>
         </Link>
+
         <Link href={"/note/home"} style={{ textDecoration: "none" }}>
           <ListItemButton>
             <ListItemIcon>
@@ -46,7 +47,7 @@ const Sidebar = () => {
             <ListItemText
               primary={
                 <Typography sx={{ fontSize: 20, color: "#E8F6EF" }}>
-                  နေ့စဥ်ဝင်ငွေစာရင်း
+                  ဝင်ငွေစာရင်းကြည့်ရန်
                 </Typography>
               }
             />
@@ -111,6 +112,26 @@ const Sidebar = () => {
               }
             />
           </ListItemButton>
+        </Link>
+        <Link
+          href={"/note/createListBefore"}
+          style={{ textDecoration: "none" }}
+        >
+          <ListItemButton>
+            <ListItemIcon>
+              <EditNoteIcon sx={{ color: "#E8F6EF", fontSize: 30, mt: -2 }} />
+            </ListItemIcon>
+            <ListItemText
+              primary={
+                <Typography sx={{ fontSize: 20, color: "#E8F6EF", mt: -2 }}>
+                  ဝင်ငွေမှတ်ရန်
+                </Typography>
+              }
+            />
+          </ListItemButton>
+          <Typography sx={{ fontSize: 16, color: "#E8F6EF", ml: 4 }}>
+            (မမှတ်ခဲ့ရသောနေ့များအတွက်)
+          </Typography>
         </Link>
       </List>
     </Box>

@@ -1,5 +1,5 @@
 import BackofficeLayout from "@/components/backofficeLayout/BackofficeLayout";
-import CreateNote from "@/components/CreateNote/createNote";
+import CreateNoteBefore from "@/components/CreateNoteBefore";
 import { Box, Typography } from "@mui/material";
 
 const CreateNotePage = () => {
@@ -20,13 +20,13 @@ const CreateNotePage = () => {
           >
             ဝင်ငွေစာရင်းမှတ်ရန်
           </Typography>
-          <Typography sx={{ fontSize: 16, textAlign: "center", mt: 1 }}>
-            (ယနေ့အတွက်)
+          <Typography sx={{ fontSize: 18, textAlign: "center", mt: 1 }}>
+            (မမှတ်ခဲ့ရသောနေ့များအတွက်)
           </Typography>
         </Box>
 
         <Box sx={{ mt: 4 }}>
-          <CreateNote />
+          <CreateNoteBefore />
         </Box>
       </Box>
     </BackofficeLayout>
