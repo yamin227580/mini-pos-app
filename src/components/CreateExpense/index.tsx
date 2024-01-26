@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { Expense } from "@prisma/client";
 import { useState } from "react";
+import AlertForValidation from "../alertForValidation";
 
 interface Props {
   open: boolean;
@@ -33,6 +34,8 @@ const CreateExpense = ({
 }: Props) => {
   const [expenseData, setExpenseData] =
     useState<CreateExpensePayload>(defaultData);
+
+  const [openForNotice, setOpenForNotice] = useState<boolean>(false);
 
   const handleCreate = async () => {
     const response = await fetch(`${config.apiBaseUrl}/expense-list`, {
@@ -74,12 +77,15 @@ const CreateExpense = ({
               sx={{ width: "100%", mb: 4 }}
               placeholder="စျေးနှုန်း"
               value={expenseData.price === 0 ? "" : expenseData.price}
-              onChange={(evt) =>
-                setExpenseData({
-                  ...expenseData,
-                  price: Number(evt.target.value),
-                })
-              }
+              onChange={(evt) => {
+                const inputValue = Number(evt.target.value);
+                if (!isNaN(inputValue)) {
+                  setExpenseData({ ...expenseData, price: Number(inputValue) });
+                } else {
+                  // Show alert or handle validation error
+                  setOpenForNotice(true);
+                }
+              }}
             />
 
             <Button
@@ -98,6 +104,10 @@ const CreateExpense = ({
           </Box>
         </DialogContent>
       </Dialog>
+      <AlertForValidation
+        openForNotice={openForNotice}
+        setOpenForNotice={setOpenForNotice}
+      />
     </Box>
   );
 };

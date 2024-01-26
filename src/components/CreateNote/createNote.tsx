@@ -3,10 +3,6 @@ import { config } from "@/utils/config";
 import {
   Box,
   Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
   FormControl,
   MenuItem,
   Select,
@@ -16,6 +12,7 @@ import {
 import { Category } from "@prisma/client";
 import { useEffect, useState } from "react";
 import AlertDialog from "../alert";
+import AlertForValidation from "../alertForValidation";
 
 const defaultData = {
   name: "",
@@ -55,10 +52,6 @@ const CreateNote = () => {
     const response = await fetch(`${config.apiBaseUrl}/select-data`);
     const dataFromServer = await response.json();
     setSelectData(dataFromServer);
-  };
-
-  const handleClose = () => {
-    setOpenForNotice(false);
   };
 
   return (
@@ -107,9 +100,6 @@ const CreateNote = () => {
             setOpenForNotice(true);
           }
         }}
-        // onChange={(evt) =>
-        //   setData({ ...data, price: Number(evt.target.value) })
-        // }
       />
 
       <Button
@@ -126,19 +116,10 @@ const CreateNote = () => {
         မှတ်မယ်
       </Button>
       <AlertDialog open={open} setOpen={setOpen} />
-      <Dialog open={openForNotice} onClose={handleClose}>
-        <DialogContent>
-          <DialogContentText
-            id="alert-dialog-description"
-            sx={{ color: "black", fontWeight: "bold", mt: 4, fontSize: "18px" }}
-          >
-            စျေးနှုန်းတန်ဖိုးကို မြန်မာလိုမရေးပဲ အင်္ဂလိပ်လိုရေးပါ
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>အိုကေ</Button>
-        </DialogActions>
-      </Dialog>
+      <AlertForValidation
+        openForNotice={openForNotice}
+        setOpenForNotice={setOpenForNotice}
+      />
     </Box>
   );
 };

@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import { Category, List } from "@prisma/client";
 import { useEffect, useState } from "react";
+import AlertForValidation from "../alertForValidation";
 
 const defaultData = {
   name: "",
@@ -41,6 +42,7 @@ const EditNote = ({
     useState<UpdateDataPayload>(defaultData);
   const [selectData, setSelectData] = useState<Category[]>([]);
   const [selectValue, setSelectValue] = useState("");
+  const [openForNotice, setOpenForNotice] = useState<boolean>(false);
 
   useEffect(() => {
     fetchSelectData();
@@ -84,78 +86,90 @@ const EditNote = ({
     setSelectData(dataFromServer);
   };
   return (
-    <Dialog
-      open={open}
-      onClose={() => {
-        setOpen(false);
-      }}
-    >
-      <DialogTitle sx={{ textAlign: "center", my: 1, fontWeight: "bold" }}>
-        စာရင်းပြင်မယ်
-      </DialogTitle>
-      <DialogContent sx={{ width: 300 }}>
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            flexDirection: "column",
-          }}
-        >
-          <Box sx={{ display: "flex", flexDirection: "row" }}>
-            <TextField
-              sx={{ width: 250, mb: 4 }}
-              placeholder="အမျိုးအမည်"
-              value={dataToUpdate.name}
-              onChange={(evt) =>
-                setDataToUpdate({ ...dataToUpdate, name: evt.target.value })
-              }
-            />
-            <FormControl fullWidth sx={{ mb: 2, width: 50 }}>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                label="Name"
-                value={selectValue}
-                onChange={handleChange}
-                displayEmpty
-              >
-                {selectData.map((item) => (
-                  <MenuItem key={item.id} value={item.name}>
-                    {item.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Box>
+    <Box>
+      <Dialog
+        open={open}
+        onClose={() => {
+          setOpen(false);
+        }}
+      >
+        <DialogTitle sx={{ textAlign: "center", my: 1, fontWeight: "bold" }}>
+          စာရင်းပြင်မယ်
+        </DialogTitle>
+        <DialogContent sx={{ width: 300 }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              flexDirection: "column",
+            }}
+          >
+            <Box sx={{ display: "flex", flexDirection: "row" }}>
+              <TextField
+                sx={{ width: 250, mb: 4 }}
+                placeholder="အမျိုးအမည်"
+                value={dataToUpdate.name}
+                onChange={(evt) =>
+                  setDataToUpdate({ ...dataToUpdate, name: evt.target.value })
+                }
+              />
+              <FormControl fullWidth sx={{ mb: 2, width: 50 }}>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  label="Name"
+                  value={selectValue}
+                  onChange={handleChange}
+                  displayEmpty
+                >
+                  {selectData.map((item) => (
+                    <MenuItem key={item.id} value={item.name}>
+                      {item.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
 
-          <TextField
-            sx={{ width: 300, mb: 2 }}
-            placeholder="စျေးနှုန်း"
-            value={dataToUpdate.price === 0 ? "" : dataToUpdate.price}
-            onChange={(evt) =>
-              setDataToUpdate({
-                ...dataToUpdate,
-                price: Number(evt.target.value),
-              })
-            }
-          />
-          <Box sx={{ display: "flex" }}>
-            <Button
-              onClick={() => setOpen(false)}
-              sx={{ fontSize: 16, color: "black", fontWeight: "bold", mr: 7 }}
-            >
-              မပြင်တော့ပါ
-            </Button>
-            <Button
-              onClick={handleUpdate}
-              sx={{ fontSize: 16, color: "#D63484", fontWeight: "bold" }}
-            >
-              ပြင်မယ်
-            </Button>
+            <TextField
+              sx={{ width: 300, mb: 2 }}
+              placeholder="စျေးနှုန်း"
+              value={dataToUpdate.price === 0 ? "" : dataToUpdate.price}
+              onChange={(evt) => {
+                const inputValue = Number(evt.target.value);
+                if (!isNaN(inputValue)) {
+                  setDataToUpdate({
+                    ...dataToUpdate,
+                    price: Number(inputValue),
+                  });
+                } else {
+                  // Show alert or handle validation error
+                  setOpenForNotice(true);
+                }
+              }}
+            />
+            <Box sx={{ display: "flex" }}>
+              <Button
+                onClick={() => setOpen(false)}
+                sx={{ fontSize: 16, color: "black", fontWeight: "bold", mr: 7 }}
+              >
+                မပြင်တော့ပါ
+              </Button>
+              <Button
+                onClick={handleUpdate}
+                sx={{ fontSize: 16, color: "#D63484", fontWeight: "bold" }}
+              >
+                ပြင်မယ်
+              </Button>
+            </Box>
           </Box>
-        </Box>
-      </DialogContent>
-    </Dialog>
+        </DialogContent>
+      </Dialog>
+      <AlertForValidation
+        openForNotice={openForNotice}
+        setOpenForNotice={setOpenForNotice}
+      />
+    </Box>
   );
 };
 

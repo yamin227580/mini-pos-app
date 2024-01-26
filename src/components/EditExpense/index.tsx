@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { Expense } from "@prisma/client";
 import { useEffect, useState } from "react";
+import AlertForValidation from "../alertForValidation";
 
 const defaultData = {
   name: "",
@@ -35,6 +36,7 @@ const EditExpense = ({
 }: Props) => {
   const [updateExpense, setUpdateExpense] =
     useState<UpdateExpensePayload>(defaultData);
+  const [openForNotice, setOpenForNotice] = useState<boolean>(false);
 
   const currentExpense = expenseDataAll.find((item) => item.id === idToUpdate);
   useEffect(() => {
@@ -92,12 +94,18 @@ const EditExpense = ({
               sx={{ width: "100%", mb: 4 }}
               placeholder="စျေးနှုန်း"
               value={updateExpense.price === 0 ? "" : updateExpense.price}
-              onChange={(evt) =>
-                setUpdateExpense({
-                  ...updateExpense,
-                  price: Number(evt.target.value),
-                })
-              }
+              onChange={(evt) => {
+                const inputValue = Number(evt.target.value);
+                if (!isNaN(inputValue)) {
+                  setUpdateExpense({
+                    ...updateExpense,
+                    price: Number(inputValue),
+                  });
+                } else {
+                  // Show alert or handle validation error
+                  setOpenForNotice(true);
+                }
+              }}
             />
 
             <Box sx={{ display: "flex" }}>
@@ -117,6 +125,10 @@ const EditExpense = ({
           </Box>
         </DialogContent>
       </Dialog>
+      <AlertForValidation
+        openForNotice={openForNotice}
+        setOpenForNotice={setOpenForNotice}
+      />
     </Box>
   );
 };
