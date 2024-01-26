@@ -3,6 +3,10 @@ import { config } from "@/utils/config";
 import {
   Box,
   Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
   FormControl,
   MenuItem,
   Select,
@@ -23,6 +27,7 @@ const CreateNote = () => {
   const [selectData, setSelectData] = useState<Category[]>([]);
   const [selectValue, setSelectValue] = useState("");
   const [open, setOpen] = useState<boolean>(false);
+  const [openForNotice, setOpenForNotice] = useState<boolean>(false);
 
   useEffect(() => {
     fetchSelectData();
@@ -51,6 +56,11 @@ const CreateNote = () => {
     const dataFromServer = await response.json();
     setSelectData(dataFromServer);
   };
+
+  const handleClose = () => {
+    setOpenForNotice(false);
+  };
+
   return (
     <Box
       sx={{
@@ -88,9 +98,18 @@ const CreateNote = () => {
         sx={{ width: 300, mb: 4 }}
         placeholder="စျေးနှုန်း"
         value={data.price === 0 ? "" : data.price}
-        onChange={(evt) =>
-          setData({ ...data, price: Number(evt.target.value) })
-        }
+        onChange={(evt) => {
+          const inputValue = Number(evt.target.value);
+          if (!isNaN(inputValue)) {
+            setData({ ...data, price: Number(inputValue) });
+          } else {
+            // Show alert or handle validation error
+            setOpenForNotice(true);
+          }
+        }}
+        // onChange={(evt) =>
+        //   setData({ ...data, price: Number(evt.target.value) })
+        // }
       />
 
       <Button
@@ -107,6 +126,19 @@ const CreateNote = () => {
         မှတ်မယ်
       </Button>
       <AlertDialog open={open} setOpen={setOpen} />
+      <Dialog open={openForNotice} onClose={handleClose}>
+        <DialogContent>
+          <DialogContentText
+            id="alert-dialog-description"
+            sx={{ color: "black", fontWeight: "bold", mt: 4, fontSize: "18px" }}
+          >
+            စျေးနှုန်းတန်ဖိုးကို မြန်မာလိုမရေးပဲ အင်္ဂလိပ်လိုရေးပါ
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>အိုကေ</Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };
