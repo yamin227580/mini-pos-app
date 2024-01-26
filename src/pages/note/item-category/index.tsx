@@ -37,10 +37,12 @@ const ItemCategoryPage = () => {
         }}
       >
         <Box>
-          <Typography sx={{ fontSize: 22, textAlign: "center" }}>
-            စုစုပေါင်း အမျိူးအမည်စာရင်းများ
+          <Typography
+            sx={{ fontSize: 22, textAlign: "center", fontWeight: "bold" }}
+          >
+            စုစုပေါင်းအမျိူးအမည် စာရင်းများ
           </Typography>
-          <Typography sx={{ fontSize: 18, mb: 7, mt: 2, textAlign: "center" }}>
+          <Typography sx={{ fontSize: 18, mb: 7, mt: 1, textAlign: "center" }}>
             ( {startDate} ရက်နေ့မှ {lastDate} ရက်နေ့အထိ )
           </Typography>
         </Box>
