@@ -148,7 +148,7 @@ const EditNote = ({
             </Button>
             <Button
               onClick={handleUpdate}
-              sx={{ fontSize: 16, color: "red", fontWeight: "bold" }}
+              sx={{ fontSize: 16, color: "#D63484", fontWeight: "bold" }}
             >
               ပြင်မယ်
             </Button>

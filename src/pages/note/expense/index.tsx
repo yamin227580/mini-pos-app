@@ -40,7 +40,7 @@ const HomePage = () => {
               color: "white",
               fontWeight: "bold",
               fontSize: 18,
-              backgroundColor: "#001524",
+              backgroundColor: "#402B3A",
               "&:hover": { backgroundColor: "gray" },
             }}
             onClick={() => setOpen(true)}

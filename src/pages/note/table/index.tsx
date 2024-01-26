@@ -151,7 +151,7 @@ const CustomizedTables = () => {
                         fontSize: 9,
                         color: "white",
                         fontWeight: "bold",
-                        backgroundColor: "red",
+                        backgroundColor: "#D63484",
                         "&:hover": { backgroundColor: "gray" },
                       }}
                       onClick={() => {
@@ -173,7 +173,7 @@ const CustomizedTables = () => {
                         fontSize: 9,
                         color: "white",
                         fontWeight: "bold",
-                        backgroundColor: "#495E57",
+                        backgroundColor: "#402B3A",
                         "&:hover": { backgroundColor: "gray" },
                       }}
                       onClick={() => {
@@ -226,7 +226,7 @@ const CustomizedTables = () => {
         </DialogContent>
 
         <Box sx={{ display: "flex", justifyContent: "space-around" }}>
-          <Button onClick={handleDelete} sx={{ color: "red" }}>
+          <Button onClick={handleDelete} sx={{ color: "#D63484" }}>
             ဖျက်မယ်
           </Button>
           <Button onClick={handleClose} sx={{ color: "black" }}>

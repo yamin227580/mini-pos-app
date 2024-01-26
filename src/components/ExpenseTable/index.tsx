@@ -148,7 +148,7 @@ const ExpenseTable = ({
                 <StyledTableCell
                   component="th"
                   scope="row"
-                  style={{ color: "red", fontWeight: "bold" }}
+                  style={{ color: "#D63484", fontWeight: "bold" }}
                 >
                   <Box>
                     <Typography
@@ -163,7 +163,11 @@ const ExpenseTable = ({
                     </Typography>
                   </Box>
                 </StyledTableCell>
-                <StyledTableCell component="th" scope="row">
+                <StyledTableCell
+                  component="th"
+                  scope="row"
+                  style={{ color: "#402B3A", fontWeight: "bold" }}
+                >
                   <Box>
                     <Typography
                       onClick={() => {
@@ -193,7 +197,7 @@ const ExpenseTable = ({
         </DialogContent>
 
         <Box sx={{ display: "flex", justifyContent: "space-around" }}>
-          <Button onClick={handleDelete} sx={{ color: "red" }}>
+          <Button onClick={handleDelete} sx={{ color: "#D63484" }}>
             ဖျက်မယ်
           </Button>
           <Button onClick={handleClose} sx={{ color: "black" }}>

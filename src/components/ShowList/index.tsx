@@ -85,7 +85,7 @@ const ShowList = ({ open, setOpen }: Props) => {
                 color: "white",
                 fontSize: 18,
                 fontWeight: "bold",
-                backgroundColor: "#001524",
+                backgroundColor: "#402B3A",
                 "&:hover": { backgroundColor: "gray" },
               }}
               onClick={handleCreate}
