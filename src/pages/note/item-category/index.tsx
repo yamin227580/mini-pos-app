@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 
 const ItemCategoryPage = () => {
   const [itemcategory, setItemCategory] = useState<ItemCategoryType>({});
+  const [startDate, setStartDate] = useState<String>("");
+  const [lastDate, setLastDate] = useState<String>("");
 
   useEffect(() => {
     fetchItemCategory();
@@ -14,9 +16,15 @@ const ItemCategoryPage = () => {
 
   const fetchItemCategory = async () => {
     const response = await fetch(`${config.apiBaseUrl}/create-note`);
-    const dataFromServer = await response.json();
-    setItemCategory(dataFromServer);
+    const { itemWithQuantity, startDateString, lastDateString } =
+      await response.json();
+    setItemCategory(itemWithQuantity);
+    setStartDate(startDateString);
+    setLastDate(lastDateString);
   };
+
+  console.log("startDate", startDate);
+  console.log("lastDate", lastDate);
 
   return (
     <BackofficeLayout>
@@ -29,7 +37,12 @@ const ItemCategoryPage = () => {
         }}
       >
         <Box>
-          <Typography sx={{ fontSize: 25, mb: 7 }}>အမျိူးအမည်စာရင်း</Typography>
+          <Typography sx={{ fontSize: 22, textAlign: "center" }}>
+            စုစုပေါင်း အမျိူးအမည်စာရင်းများ
+          </Typography>
+          <Typography sx={{ fontSize: 18, mb: 7, mt: 2, textAlign: "center" }}>
+            ( {startDate} ရက်နေ့မှ {lastDate} ရက်နေ့အထိ )
+          </Typography>
         </Box>
 
         <Box

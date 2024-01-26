@@ -8,7 +8,7 @@ interface Props {
   imageUrl: string;
 }
 
-const ItemCard = ({ itemcategory, key, itemKey, imageUrl }: Props) => {
+const ItemCard = ({ itemcategory, itemKey, imageUrl }: Props) => {
   return (
     <Card
       key={itemKey}

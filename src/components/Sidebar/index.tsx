@@ -95,43 +95,43 @@ const Sidebar = () => {
             />
           </ListItemButton>
         </Link>
-        <Link href={"/"} style={{ textDecoration: "none" }}>
-          <ListItemButton>
-            <ListItemIcon>
-              <Box sx={{ ml: -1.5, mt: -1 }}>
-                <Image src={"/home.png"} alt="logo" width={58} height={50} />
-              </Box>
-            </ListItemIcon>
-            <ListItemText
-              primary={
-                <Typography
-                  sx={{ fontSize: 20, color: "#E8F6EF", mr: 5, mt: -2 }}
-                >
-                  မူလစာမျက်နှာ
-                </Typography>
-              }
-            />
-          </ListItemButton>
-        </Link>
         <Link
           href={"/note/createListBefore"}
           style={{ textDecoration: "none" }}
         >
           <ListItemButton>
             <ListItemIcon>
-              <EditNoteIcon sx={{ color: "#E8F6EF", fontSize: 30, mt: -2 }} />
+              <EditNoteIcon sx={{ color: "#E8F6EF", fontSize: 30 }} />
             </ListItemIcon>
             <ListItemText
               primary={
-                <Typography sx={{ fontSize: 20, color: "#E8F6EF", mt: -2 }}>
+                <Typography sx={{ fontSize: 20, color: "#E8F6EF" }}>
                   ဝင်ငွေမှတ်ရန်
                 </Typography>
               }
             />
           </ListItemButton>
-          <Typography sx={{ fontSize: 16, color: "#E8F6EF", ml: 4 }}>
+          <Typography sx={{ fontSize: 14, color: "#E8F6EF", ml: 6, mt: -1 }}>
             (မမှတ်ခဲ့ရသောနေ့များအတွက်)
           </Typography>
+        </Link>
+        <Link href={"/"} style={{ textDecoration: "none" }}>
+          <ListItemButton>
+            <ListItemIcon>
+              <Box sx={{ ml: -1.5, mt: 1 }}>
+                <Image src={"/home.png"} alt="logo" width={55} height={50} />
+              </Box>
+            </ListItemIcon>
+            <ListItemText
+              primary={
+                <Typography
+                  sx={{ fontSize: 20, color: "#E8F6EF", mr: 5, mt: 0 }}
+                >
+                  မူလစာမျက်နှာ
+                </Typography>
+              }
+            />
+          </ListItemButton>
         </Link>
       </List>
     </Box>

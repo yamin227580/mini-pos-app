@@ -39,8 +39,20 @@ export default async function handler(
       ...item,
       createdAt: item.createdAt.toISOString().split("T")[0],
     }));
+    //find minDate and maxdate
+    const dateArray = updatedData.map((item) => new Date(item.createdAt));
+    const dateObjects: Date[] = dateArray.map((dateStr) => new Date(dateStr));
+    const startDate = new Date(
+      Math.min(...dateObjects.map((date) => date.getTime()))
+    );
+    const lastDate = new Date(
+      Math.max(...dateObjects.map((date) => date.getTime()))
+    );
 
-    // Initialize totals as an empty object
+    const startDateString = startDate.toISOString().split("T")[0];
+    const lastDateString = lastDate.toISOString().split("T")[0];
+
+    // find item with quantity
     const itemWithQuantity: { [name: string]: number } = {};
 
     for (const entry of updatedData) {
@@ -53,7 +65,7 @@ export default async function handler(
 
       itemWithQuantity[trimmedName] += 1;
     }
-    return res.send(itemWithQuantity);
+    return res.send({ itemWithQuantity, startDateString, lastDateString });
   }
   res.status(200).json("ok");
 }
