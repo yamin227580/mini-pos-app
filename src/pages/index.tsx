@@ -20,12 +20,12 @@ export default function Home() {
           sx={{
             textAlign: "center",
             margin: "0 auto",
-            fontSize: 27,
+            fontSize: 25,
             pt: 2.5,
             fontWeight: "bold",
           }}
         >
-          Beauty Salon App
+          ဆောင်းသရဖူ အလှပြင်ဆိုင်
         </Typography>
       </Box>
 
