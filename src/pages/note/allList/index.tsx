@@ -119,7 +119,7 @@ const AllListPage = () => {
         >
           <Box sx={{ display: "flex", flexDirection: "column", mr: 1 }}>
             <Typography
-              sx={{ mb: 1, fontSize: 17, mr: "5px", textAlign: "center" }}
+              sx={{ mb: 0.5, fontSize: 17, mr: "5px", textAlign: "center" }}
             >
               မှ
             </Typography>
@@ -142,7 +142,7 @@ const AllListPage = () => {
           </Box>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
             <Typography
-              sx={{ mb: 1, fontSize: 16, mr: "5px", textAlign: "center" }}
+              sx={{ mb: 0.5, fontSize: 17, mr: "5px", textAlign: "center" }}
             >
               အထိ
             </Typography>
@@ -167,10 +167,11 @@ const AllListPage = () => {
           <Box>
             <Typography
               sx={{
-                mt: 6,
+                mt: 5.5,
                 fontSize: 16,
                 cursor: "pointer",
                 ml: 1,
+                fontWeight: "bold",
               }}
               onClick={handleAll}
             >
@@ -183,7 +184,7 @@ const AllListPage = () => {
               display: "flex",
               flexDirection: "row",
               ml: 1,
-              mt: 6,
+              mt: 5.5,
             }}
           >
             <SearchIcon
@@ -191,7 +192,7 @@ const AllListPage = () => {
               onClick={handleClick}
             />
             <Typography
-              sx={{ cursor: "pointer", fontSize: 15 }}
+              sx={{ cursor: "pointer", fontSize: 15, fontWeight: "bold" }}
               onClick={handleClick}
             >
               ရှာမယ်
