@@ -119,7 +119,7 @@ const AllListPage = () => {
         >
           <Box sx={{ display: "flex", flexDirection: "column", mr: 1 }}>
             <Typography
-              sx={{ mb: 0.5, fontSize: 17, mr: "5px", textAlign: "center" }}
+              sx={{ mb: 1.2, fontSize: 17, mr: "5px", textAlign: "center" }}
             >
               မှ
             </Typography>
@@ -140,7 +140,7 @@ const AllListPage = () => {
               }}
             />
           </Box>
-          <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <Box sx={{ display: "flex", flexDirection: "column", mt: 0.7 }}>
             <Typography
               sx={{ mb: 0.5, fontSize: 17, mr: "5px", textAlign: "center" }}
             >
