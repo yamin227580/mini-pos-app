@@ -105,7 +105,7 @@ const AllListPage = () => {
         }}
       >
         <Box>
-          <Typography sx={{ fontSize: 22, mb: 2 }}>
+          <Typography sx={{ fontSize: 22, mb: 2, fontWeight: "bold" }}>
             ဝင်ငွေစာရင်းပေါင်းချုပ်
           </Typography>
         </Box>
