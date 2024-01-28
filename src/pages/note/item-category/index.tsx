@@ -23,9 +23,6 @@ const ItemCategoryPage = () => {
     setLastDate(lastDateString);
   };
 
-  console.log("startDate", startDate);
-  console.log("lastDate", lastDate);
-
   return (
     <BackofficeLayout>
       <Box

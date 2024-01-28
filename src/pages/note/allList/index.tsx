@@ -34,6 +34,8 @@ const AllListPage = () => {
   const [dateFrom, setDateFrom] = useState<CreateDate>({
     date: "",
   });
+  const [startDate, setStartDate] = useState<String>("");
+  const [lastDate, setLastDate] = useState<String>("");
 
   const sortedEntries = Object.entries(ListForAll).sort(([dateA], [dateB]) => {
     const timestampA = new Date(dateA).getTime();
@@ -41,15 +43,14 @@ const AllListPage = () => {
     return timestampA - timestampB;
   });
 
-  // useEffect(() => {
-  //   fetchAllLists();
-  // }, []);
-
   const fetchAllLists = async () => {
     const response = await fetch(`${config.apiBaseUrl}/all-list`);
-    const { totalPrice, totals } = await response.json();
+    const { totals, totalPrice, startDateString, lastDateString } =
+      await response.json();
     setListForAll(totals);
     setTotalPrice(totalPrice);
+    setStartDate(startDateString);
+    setLastDate(lastDateString);
   };
 
   const handleAll = () => {
@@ -89,6 +90,8 @@ const AllListPage = () => {
     const { filteredFinalLists, totalPrice } = await response.json();
     setListForAll(filteredFinalLists);
     setTotalPrice(totalPrice);
+    setStartDate(date.date);
+    setLastDate(dateFrom.date);
   };
 
   return (
@@ -102,7 +105,7 @@ const AllListPage = () => {
         }}
       >
         <Box>
-          <Typography sx={{ fontSize: 26, mb: 5 }}>
+          <Typography sx={{ fontSize: 22, mb: 2 }}>
             ဝင်ငွေစာရင်းပေါင်းချုပ်
           </Typography>
         </Box>
@@ -116,7 +119,7 @@ const AllListPage = () => {
         >
           <Box sx={{ display: "flex", flexDirection: "column", mr: 1 }}>
             <Typography
-              sx={{ mb: 2, fontSize: 18, mr: "5px", textAlign: "center" }}
+              sx={{ mb: 1, fontSize: 17, mr: "5px", textAlign: "center" }}
             >
               မှ
             </Typography>
@@ -139,7 +142,7 @@ const AllListPage = () => {
           </Box>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
             <Typography
-              sx={{ mb: 2, fontSize: 18, mr: "5px", textAlign: "center" }}
+              sx={{ mb: 1, fontSize: 16, mr: "5px", textAlign: "center" }}
             >
               အထိ
             </Typography>
@@ -164,7 +167,7 @@ const AllListPage = () => {
           <Box>
             <Typography
               sx={{
-                mt: 8,
+                mt: 6,
                 fontSize: 16,
                 cursor: "pointer",
                 ml: 1,
@@ -180,7 +183,7 @@ const AllListPage = () => {
               display: "flex",
               flexDirection: "row",
               ml: 1,
-              mt: 8,
+              mt: 6,
             }}
           >
             <SearchIcon
@@ -198,9 +201,20 @@ const AllListPage = () => {
       </Box>
 
       <Box>
+        {startDate && lastDate && (
+          <Box sx={{ mr: 2, mt: 2 }}>
+            <Typography sx={{ textAlign: { xs: "right", sm: "center" } }}>
+              {startDate} မှ {lastDate} အထိ
+            </Typography>
+          </Box>
+        )}
         <TableContainer
           component={Paper}
-          sx={{ width: { xs: "100vw", sm: 700 }, margin: "0 auto", mt: 3 }}
+          sx={{
+            width: { xs: "100vw", sm: 700 },
+            margin: "0 auto",
+            mt: 3,
+          }}
         >
           <Table aria-label="customized table">
             <TableHead>

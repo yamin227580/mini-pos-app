@@ -14,6 +14,19 @@ export default async function handler(
       createdAt: item.createdAt.toISOString().split("T")[0],
     }));
 
+    //find minDate and maxdate
+    const dateArray = updatedData.map((item) => new Date(item.createdAt));
+    const dateObjects: Date[] = dateArray.map((dateStr) => new Date(dateStr));
+    const startDate = new Date(
+      Math.min(...dateObjects.map((date) => date.getTime()))
+    );
+    const lastDate = new Date(
+      Math.max(...dateObjects.map((date) => date.getTime()))
+    );
+
+    const startDateString = startDate.toISOString().split("T")[0];
+    const lastDateString = lastDate.toISOString().split("T")[0];
+
     // Initialize totals as an empty object
     const totals: { [createdAt: string]: number } = {};
 
@@ -30,7 +43,7 @@ export default async function handler(
     const arrayData: [string, number][] = Object.entries(totals);
     const totalPrice = arrayData.reduce((acc, [key, value]) => acc + value, 0);
 
-    return res.send({ totals, totalPrice });
+    return res.send({ totals, totalPrice, startDateString, lastDateString });
   }
   res.status(200).json("ok");
 }
