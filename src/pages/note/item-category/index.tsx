@@ -64,6 +64,16 @@ const ItemCategoryPage = () => {
                 />
               );
             }
+            if (key === "အမဲဆိုး") {
+              return (
+                <ItemCard
+                  itemcategory={itemcategory}
+                  key={key}
+                  itemKey={key}
+                  imageUrl={"/black-hair.png"}
+                />
+              );
+            }
             if (key === "နားဖောက်") {
               return (
                 <ItemCard
