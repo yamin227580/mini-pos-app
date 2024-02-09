@@ -114,6 +114,26 @@ const ItemCategoryPage = () => {
                 />
               );
             }
+            if (key === "ခေါင်း‌လျှော်စက်ဆွဲ") {
+              return (
+                <ItemCard
+                  itemcategory={itemcategory}
+                  key={key}
+                  itemKey={key}
+                  imageUrl={"/hair-washing.png"}
+                />
+              );
+            }
+            if (key === "ခေါင်း‌လျှော်စက်ဆွဲ") {
+              return (
+                <ItemCard
+                  itemcategory={itemcategory}
+                  key={key}
+                  itemKey={key}
+                  imageUrl={"/hair-iron.png"}
+                />
+              );
+            }
             if (key === "လျှော်ညှပ်") {
               return (
                 <ItemCard
@@ -135,6 +155,16 @@ const ItemCategoryPage = () => {
               );
             }
             if (key === "ဆံပင်ဖြောင့်") {
+              return (
+                <ItemCard
+                  itemcategory={itemcategory}
+                  key={key}
+                  itemKey={key}
+                  imageUrl={"/hair-straightener.png"}
+                />
+              );
+            }
+            if (key === "အရှေ့ဖြောင့်") {
               return (
                 <ItemCard
                   itemcategory={itemcategory}

@@ -77,6 +77,8 @@ const CreateExpense = ({
               sx={{ width: "100%", mb: 4 }}
               placeholder="စျေးနှုန်း"
               value={expenseData.price === 0 ? "" : expenseData.price}
+              type="number"
+              inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
               onChange={(evt) => {
                 const inputValue = Number(evt.target.value);
                 if (!isNaN(inputValue)) {
