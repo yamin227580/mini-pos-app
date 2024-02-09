@@ -94,6 +94,8 @@ const EditExpense = ({
               sx={{ width: "100%", mb: 4 }}
               placeholder="စျေးနှုန်း"
               value={updateExpense.price === 0 ? "" : updateExpense.price}
+              type="number"
+              inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
               onChange={(evt) => {
                 const inputValue = Number(evt.target.value);
                 if (!isNaN(inputValue)) {

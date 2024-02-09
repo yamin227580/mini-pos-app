@@ -135,6 +135,8 @@ const EditNote = ({
               sx={{ width: 300, mb: 2 }}
               placeholder="စျေးနှုန်း"
               value={dataToUpdate.price === 0 ? "" : dataToUpdate.price}
+              type="number"
+              inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
               onChange={(evt) => {
                 const inputValue = Number(evt.target.value);
                 if (!isNaN(inputValue)) {
