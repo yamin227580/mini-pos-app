@@ -13,7 +13,7 @@ const ItemCard = ({ itemcategory, itemKey, imageUrl }: Props) => {
     <Card
       key={itemKey}
       sx={{
-        width: 150,
+        width: 160,
         height: 150,
         pb: 10,
         mb: 5,

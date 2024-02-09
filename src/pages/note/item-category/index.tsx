@@ -124,16 +124,7 @@ const ItemCategoryPage = () => {
                 />
               );
             }
-            if (key === "ခေါင်း‌လျှော်စက်ဆွဲ") {
-              return (
-                <ItemCard
-                  itemcategory={itemcategory}
-                  key={key}
-                  itemKey={key}
-                  imageUrl={"/hair-iron.png"}
-                />
-              );
-            }
+
             if (key === "လျှော်ညှပ်") {
               return (
                 <ItemCard
