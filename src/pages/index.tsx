@@ -1,5 +1,12 @@
 import { config } from "@/utils/config";
-import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+} from "@mui/material";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -149,7 +156,6 @@ export default function Home() {
         sx={{
           width: { xs: "90%", sm: "20%" },
           height: 40,
-          backgroundColor: "#402B3A",
           pt: 2,
           m: "0 auto",
           borderRadius: 6,
@@ -158,9 +164,19 @@ export default function Home() {
         }}
         onClick={handleChangeRoute}
       >
-        <Typography sx={{ fontSize: 18, color: "white", textAlign: "center" }}>
-          အခု စတင်လိုက်ကြရအောင်
-        </Typography>
+        <Button
+          variant="contained"
+          sx={{
+            width: "100%",
+            backgroundColor: "#402B3A",
+            ml: { xs: 0, sm: 4 },
+            "&:hover": {
+              backgroundColor: "gray", // Set the hover color here
+            },
+          }}
+        >
+          Go to Home Page
+        </Button>
       </Box>
     </Box>
   );
