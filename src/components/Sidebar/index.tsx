@@ -1,6 +1,7 @@
 import CategoryIcon from "@mui/icons-material/Category";
 import ChecklistIcon from "@mui/icons-material/Checklist";
 import EditNoteIcon from "@mui/icons-material/EditNote";
+import HomeIcon from "@mui/icons-material/Home";
 import ViewListIcon from "@mui/icons-material/ViewList";
 import {
   Box,
@@ -11,7 +12,6 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import Image from "next/image";
 
 const Sidebar = () => {
   return (
@@ -47,7 +47,7 @@ const Sidebar = () => {
             <ListItemText
               primary={
                 <Typography sx={{ fontSize: 20, color: "#E8F6EF" }}>
-                  ဝင်ငွေစာရင်းကြည့်ရန်
+                  ဝင်ငွေစာရင်း
                 </Typography>
               }
             />
@@ -118,15 +118,11 @@ const Sidebar = () => {
         <Link href={"/"} style={{ textDecoration: "none" }}>
           <ListItemButton>
             <ListItemIcon>
-              <Box sx={{ ml: -1.5, mt: 1 }}>
-                <Image src={"/home.png"} alt="logo" width={55} height={50} />
-              </Box>
+              <HomeIcon sx={{ color: "#E8F6EF", fontSize: 30, mt: 1 }} />
             </ListItemIcon>
             <ListItemText
               primary={
-                <Typography
-                  sx={{ fontSize: 20, color: "#E8F6EF", mr: 5, mt: 0 }}
-                >
+                <Typography sx={{ fontSize: 20, color: "#E8F6EF", mt: 1 }}>
                   မူလစာမျက်နှာ
                 </Typography>
               }

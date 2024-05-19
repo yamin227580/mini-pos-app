@@ -25,8 +25,8 @@ const Topbar = () => {
         <Image src={"/hairstyle.png"} alt="logo" width={110} height={70} />
       </Box>
       <Box sx={{ display: { xs: "none", sm: "block" } }}>
-        <Typography variant="h4" sx={{ color: "#E8F6EF" }}>
-          My Note App
+        <Typography variant="h5" sx={{ color: "#E8F6EF" }}>
+          Beauty Saloon POS
         </Typography>
       </Box>
 

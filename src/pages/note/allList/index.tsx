@@ -1,3 +1,4 @@
+import AlertForNoData from "@/components/AlertForNoData";
 import BackofficeLayout from "@/components/backofficeLayout/BackofficeLayout";
 import { CreateDate } from "@/types/typeForAll";
 import { config } from "@/utils/config";
@@ -36,6 +37,7 @@ const AllListPage = () => {
   });
   const [startDate, setStartDate] = useState<String>("");
   const [lastDate, setLastDate] = useState<String>("");
+  const [openForNoData, setOpenForNoData] = useState(false);
 
   const sortedEntries = Object.entries(ListForAll).sort(([dateA], [dateB]) => {
     const timestampA = new Date(dateA).getTime();
@@ -82,16 +84,28 @@ const AllListPage = () => {
   }));
 
   const handleClick = async () => {
-    const response = await fetch(`${config.apiBaseUrl}/filter-from-all-list`, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ date, dateFrom }),
-    });
-    const { filteredFinalLists, totalPrice } = await response.json();
-    setListForAll(filteredFinalLists);
-    setTotalPrice(totalPrice);
-    setStartDate(date.date);
-    setLastDate(dateFrom.date);
+    if (date.date && dateFrom.date) {
+      const response = await fetch(
+        `${config.apiBaseUrl}/filter-from-all-list`,
+        {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ date, dateFrom }),
+        }
+      );
+      const { filteredFinalLists, totalPrice } = await response.json();
+      if (Object.keys(filteredFinalLists).length === 0) {
+        setOpenForNoData(true);
+      }
+      setListForAll(filteredFinalLists);
+      setTotalPrice(totalPrice);
+      setStartDate(date.date);
+      setLastDate(dateFrom.date);
+      setValue(null);
+      setValueFrom(null);
+      setDate({ date: "" });
+      setDateFrom({ date: "" });
+    }
   };
 
   return (
@@ -200,56 +214,65 @@ const AllListPage = () => {
           </Box>
         </Box>
       </Box>
-
-      <Box>
-        {startDate && lastDate && (
-          <Box sx={{ mr: 2, mt: 2 }}>
-            <Typography sx={{ textAlign: { xs: "right", sm: "center" } }}>
-              {startDate} မှ {lastDate} အထိ
-            </Typography>
-          </Box>
-        )}
-        <TableContainer
-          component={Paper}
-          sx={{
-            width: { xs: "100vw", sm: 700 },
-            margin: "0 auto",
-            mt: 3,
-          }}
-        >
-          <Table aria-label="customized table">
-            <TableHead>
-              <TableRow>
-                <StyledTableCell sx={{ fontSize: 20 }}>ရက်စွဲ</StyledTableCell>
-                <StyledTableCell sx={{ fontSize: 20, textAlign: "right" }}>
-                  ရငွေ
-                </StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {sortedEntries.map(([date, value]) => (
-                // <li key={date}>{`${date}: ${value}`}</li>
-                <StyledTableRow key={date}>
-                  <StyledTableCell component="th" scope="row">
-                    {`${date}`}
+      {Object.keys(ListForAll).length > 0 && (
+        <Box>
+          {startDate && lastDate && (
+            <Box sx={{ mr: 2, mt: 2 }}>
+              <Typography sx={{ textAlign: { xs: "right", sm: "center" } }}>
+                {startDate} မှ {lastDate} အထိ
+              </Typography>
+            </Box>
+          )}
+          <TableContainer
+            component={Paper}
+            sx={{
+              width: { xs: "100vw", sm: 700 },
+              margin: "0 auto",
+              mt: 3,
+            }}
+          >
+            <Table aria-label="customized table">
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell sx={{ fontSize: 20 }}>
+                    ရက်စွဲ
                   </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {typeof value === "number"
-                      ? value.toLocaleString()
-                      : "Invalid Value"}
+                  <StyledTableCell sx={{ fontSize: 20, textAlign: "right" }}>
+                    ရငွေ
+                  </StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {sortedEntries.map(([date, value]) => (
+                  // <li key={date}>{`${date}: ${value}`}</li>
+                  <StyledTableRow key={date}>
+                    <StyledTableCell component="th" scope="row">
+                      {`${date}`}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
+                      {typeof value === "number"
+                        ? value.toLocaleString()
+                        : "Invalid Value"}
+                    </StyledTableCell>
+                  </StyledTableRow>
+                ))}
+                <StyledTableRow>
+                  <StyledTableCell
+                    sx={{ fontWeight: "bold", textAlign: "right" }}
+                  >
+                    စုစုပေါင်း = {totalPrice.toLocaleString()}
                   </StyledTableCell>
                 </StyledTableRow>
-              ))}
-              <StyledTableRow>
-                <StyledTableCell
-                  sx={{ fontWeight: "bold", textAlign: "right" }}
-                >
-                  စုစုပေါင်း = {totalPrice.toLocaleString()}
-                </StyledTableCell>
-              </StyledTableRow>
-            </TableBody>
-          </Table>
-        </TableContainer>
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Box>
+      )}
+      <Box>
+        <AlertForNoData
+          openForNoData={openForNoData}
+          setOpenForNoData={setOpenForNoData}
+        />
       </Box>
     </BackofficeLayout>
   );

@@ -1,3 +1,4 @@
+import AlertForNoDataForEachDate from "@/components/AlertForNoDataForEachDate";
 import EditNote from "@/components/EditNote";
 import BackofficeLayout from "@/components/backofficeLayout/BackofficeLayout";
 import { config } from "@/utils/config";
@@ -48,6 +49,7 @@ const CustomizedTables = () => {
   >();
   const [open, setOpen] = useState<boolean>(false);
   const [openForEdit, setOpenForEdit] = useState<boolean>(false);
+  const [openForNoData, setOpenForNoData] = useState<boolean>(true);
 
   const [idToDelete, setIdToDelete] = useState<number>();
   const [idToEdit, setIdToEdit] = useState<number>();
@@ -102,119 +104,128 @@ const CustomizedTables = () => {
           </Typography>
         )}
       </Box>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          width: "100%",
-        }}
-      >
-        <TableContainer
-          component={Paper}
-          sx={{ width: { xs: "100vw", sm: 700 }, margin: "0 auto" }}
+      {data.length > 0 ? (
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            width: "100%",
+          }}
         >
-          <Table aria-label="customized table">
-            <TableHead>
-              <TableRow>
-                <StyledTableCell sx={{ fontSize: 14 }}>
-                  အမျိုးအမည်
-                </StyledTableCell>
-                <StyledTableCell sx={{ fontSize: 14 }}>
-                  စျေးနှုန်း
-                </StyledTableCell>
-                <StyledTableCell>
-                  <span />
-                </StyledTableCell>
-                <StyledTableCell>
-                  <span />
-                </StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {data.map((item) => (
-                <StyledTableRow key={item.id}>
-                  <StyledTableCell style={{ fontSize: "12px" }}>
-                    {item.name}
-                  </StyledTableCell>
-                  <StyledTableCell style={{ fontSize: "12px" }}>
-                    {item.price.toLocaleString()}
-                  </StyledTableCell>
-                  <StyledTableCell
-                    component="th"
-                    scope="row"
-                    style={{ fontSize: "10px" }}
-                  >
-                    <Button
-                      variant="contained"
-                      sx={{
-                        fontSize: 9,
-                        color: "white",
-                        fontWeight: "bold",
-                        backgroundColor: "#D63484",
-                        "&:hover": { backgroundColor: "gray" },
-                      }}
-                      onClick={() => {
-                        setIdToDelete(item.id);
-                        setOpen(true);
-                      }}
-                    >
-                      ဖျက်မယ်
-                    </Button>
-                  </StyledTableCell>
-                  <StyledTableCell
-                    component="th"
-                    scope="row"
-                    style={{ fontSize: "10px" }}
-                  >
-                    <Button
-                      variant="contained"
-                      sx={{
-                        fontSize: 9,
-                        color: "white",
-                        fontWeight: "bold",
-                        backgroundColor: "#402B3A",
-                        "&:hover": { backgroundColor: "gray" },
-                      }}
-                      onClick={() => {
-                        setIdToEdit(item.id);
-                        setOpenForEdit(true);
-                      }}
-                    >
-                      ပြင်မယ်
-                    </Button>
-                  </StyledTableCell>
-                </StyledTableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-
-        <Box width={{ width: "400px", margin: "0 auto" }}>
-          <Box
-            sx={{
-              textAlign: "center",
-              fontSize: 18,
-              fontWeight: "bold",
-              mt: 2,
-            }}
+          <TableContainer
+            component={Paper}
+            sx={{ width: { xs: "100vw", sm: 700 }, margin: "0 auto" }}
           >
-            စုစုပေါင်း ={" "}
-            {typeof totalPriceState === "string"
-              ? Number(totalPriceState).toLocaleString()
-              : "0"}
-          </Box>
-        </Box>
+            <Table aria-label="customized table">
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell sx={{ fontSize: 14 }}>
+                    အမျိုးအမည်
+                  </StyledTableCell>
+                  <StyledTableCell sx={{ fontSize: 14 }}>
+                    စျေးနှုန်း
+                  </StyledTableCell>
+                  <StyledTableCell>
+                    <span />
+                  </StyledTableCell>
+                  <StyledTableCell>
+                    <span />
+                  </StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {data.map((item) => (
+                  <StyledTableRow key={item.id}>
+                    <StyledTableCell style={{ fontSize: "12px" }}>
+                      {item.name}
+                    </StyledTableCell>
+                    <StyledTableCell style={{ fontSize: "12px" }}>
+                      {item.price.toLocaleString()}
+                    </StyledTableCell>
+                    <StyledTableCell
+                      component="th"
+                      scope="row"
+                      style={{ fontSize: "10px" }}
+                    >
+                      <Button
+                        variant="contained"
+                        sx={{
+                          fontSize: 9,
+                          color: "white",
+                          fontWeight: "bold",
+                          backgroundColor: "#D63484",
+                          "&:hover": { backgroundColor: "gray" },
+                        }}
+                        onClick={() => {
+                          setIdToDelete(item.id);
+                          setOpen(true);
+                        }}
+                      >
+                        ဖျက်မယ်
+                      </Button>
+                    </StyledTableCell>
+                    <StyledTableCell
+                      component="th"
+                      scope="row"
+                      style={{ fontSize: "10px" }}
+                    >
+                      <Button
+                        variant="contained"
+                        sx={{
+                          fontSize: 9,
+                          color: "white",
+                          fontWeight: "bold",
+                          backgroundColor: "#402B3A",
+                          "&:hover": { backgroundColor: "gray" },
+                        }}
+                        onClick={() => {
+                          setIdToEdit(item.id);
+                          setOpenForEdit(true);
+                        }}
+                      >
+                        ပြင်မယ်
+                      </Button>
+                    </StyledTableCell>
+                  </StyledTableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
 
-        <EditNote
-          open={openForEdit}
-          setOpen={setOpenForEdit}
-          idToEdit={idToEdit}
-          data={data}
-          setData={setData}
-          setTotalPriceState={setTotalPriceState}
-        />
-      </Box>
+          <Box width={{ width: "400px", margin: "0 auto" }}>
+            <Box
+              sx={{
+                textAlign: "center",
+                fontSize: 18,
+                fontWeight: "bold",
+                mt: 2,
+              }}
+            >
+              စုစုပေါင်း ={" "}
+              {typeof totalPriceState === "string"
+                ? Number(totalPriceState).toLocaleString()
+                : "0"}
+            </Box>
+          </Box>
+
+          <EditNote
+            open={openForEdit}
+            setOpen={setOpenForEdit}
+            idToEdit={idToEdit}
+            data={data}
+            setData={setData}
+            setTotalPriceState={setTotalPriceState}
+          />
+        </Box>
+      ) : (
+        <Box>
+          <AlertForNoDataForEachDate
+            openForNoData={openForNoData}
+            setOpenForNoData={setOpenForNoData}
+          />
+        </Box>
+      )}
       <Dialog open={open} onClose={handleClose}>
         <DialogContent>
           <DialogContentText

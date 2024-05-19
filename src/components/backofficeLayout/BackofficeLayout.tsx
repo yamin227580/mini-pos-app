@@ -10,7 +10,16 @@ interface Props {
 
 const BackofficeLayout = ({ children }: Props) => {
   return (
-    <Box sx={{ display: "flex", width: "100vw", flexDirection: "column" }}>
+    <Box
+      sx={{
+        display: "flex",
+        width: "100vw",
+        height: "100%",
+        minHeight: "100vh",
+        flexDirection: "column",
+        overflowY: "auto",
+      }}
+    >
       <Topbar />
 
       <Box sx={{ display: "flex", position: "relative" }}>

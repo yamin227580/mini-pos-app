@@ -1,11 +1,71 @@
+import { config } from "@/utils/config";
 import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+
+const itemCategories = [
+  "ဆံပင်ညှပ်",
+  "ရှေ့ညှပ်",
+  "ဆံပင်ဖြောင့်",
+  "ဆံပင်ကောက်",
+  "ခေါင်း‌လျှော်",
+  "လျှော်ညှပ်",
+  "လျှော်ပေါင်း",
+  "စက်ဆွဲ",
+  "ဆေးဆိုး",
+  "မျက်ခုံးရိတ်",
+  "နားဖောက်",
+  "မျက်နှာပေါင်းတင်",
+  "မျက်နှာဂျီးချွတ်",
+  "မိတ်ကပ်လိမ်း",
+];
 
 export default function Home() {
   const router = useRouter();
+  const [data, setData] = useState<string[]>([]);
+  const [hasFetchedData, setHasFetchedData] = useState(false);
+  const [hasCreatedData, setHasCreatedData] = useState(false);
+
+  const createData = async () => {
+    try {
+      const response = await fetch(`${config.apiBaseUrl}/select-data`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(itemCategories),
+      });
+      const dataFromServer = await response.json();
+      setData(dataFromServer);
+      setHasCreatedData(true); // Indicate that data creation has completed
+    } catch (error) {
+      console.error("Error creating data:", error);
+    }
+  };
+
+  const fetchSelectData = async () => {
+    try {
+      const response = await fetch(`${config.apiBaseUrl}/select-data`);
+      const dataFromServer = await response.json();
+      setData(dataFromServer);
+      setHasFetchedData(true); // Indicate that data fetching has completed
+    } catch (error) {
+      setHasFetchedData(true); // Still set to true to prevent blocking the creation in case of an error
+    }
+  };
+
+  useEffect(() => {
+    fetchSelectData();
+  }, []);
+
+  useEffect(() => {
+    if (hasFetchedData && data.length === 0 && !hasCreatedData) {
+      createData();
+    }
+  }, [hasFetchedData, data.length, hasCreatedData]);
+
   const handleChangeRoute = () => {
     router.push("/note/createList");
   };
+
   return (
     <Box
       sx={{
@@ -78,9 +138,9 @@ export default function Home() {
                 textAlign: "center",
               }}
             >
-              ဆိုင်ရဲ့ နေ့စဥ်ဝင်ငွေ အသုံးစရိတ်များကို လွယ်လွယ်ကူကူ
-              လျှင်လျှင်မြန်မြန်နဲ့ စီမံနိုင်ပါသည်။
-              နေ့စဥ်ဝင်ငွေစာရင်းစုစုပေါင်းကိုလဲ အလွယ်တကူကြည့်ရှုနိုင်ပါသည်။
+              ဆိုင်ရဲ့ နေ့စဥ်ဝင်ငွေ ထွက်ငွေနှင့် အသုံးစရိတ်များကို လွယ်လွယ်ကူကူ
+              လျှင်လျှင်မြန်မြန်နဲ့ စီမံနိုင်ပါသည်။ နေ့စဥ်စာရင်းစုစုပေါင်းကိုလဲ
+              ရက်၊လ၊နှစ်အလိုက် အလွယ်တကူကြည့်ရှုနိုင်ပါသည်။
             </Typography>
           </Box>
         </CardContent>
